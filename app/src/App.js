@@ -1,43 +1,38 @@
 import React, { Component } from 'react';
-import Container from 'react-bootstrap/lib/Container'
-import Login from './components/Login';
-import CoursesList from './components/courses/CoursesList'
-import CourseEdit from './components/courses/CourseEdit'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import CourseService from './services/CourseService'
-var courseService = new CourseService();
-class App extends Component {
+import { connect } from 'react-redux';
+import Login from './features/LoginPage';
+import Courses from './features/CoursesPage';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
+import Logo from './features/Logo'
+import UserInfo from './features/UserInfo'
+
+class AppComponent extends Component {
   render() {
     return (
-      <Container>
-        <Header username="Test user" authorized="true"/>
+      <div>
+        <Logo />
+        {this.props.authorized ? <UserInfo/> : null}
         <Router>
-          <div>
-            <ul>
-              <li>
-                <Link to="/">Login</Link>
-              </li>
-              <li>
-                <Link to="/courses">Courses</Link>
-              </li>
-              <li>
-                <Link to="/courses/_new">New Course</Link>
-              </li>
-            </ul>
-
-            <hr />
-
-            <Route exact path="/" component={Login} />
-            <Route exact path="/courses" render={() => <CoursesList courseService={courseService} />} />
-            <Route path="/courses/_new" component={CourseEdit} />
-          </div>
+          <Switch>
+            <Route exact path="/login">
+              {this.props.authorized ? <Redirect to="/courses" /> : <Login />}
+            </Route>
+            <Route exact path="/courses">
+              {this.props.authorized ? <Courses /> : <Redirect to="/login" />}
+            </Route>
+            <Route>
+              <Redirect to="/login" />
+            </Route>
+          </Switch>
         </Router>
-        <Footer/>
-      </Container>
+      </div>
     );
   }
 }
-
-export default App;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    authorized: state.auth.authorized,
+    username: state.auth.username
+  }
+}
+export default connect(mapStateToProps)(AppComponent);

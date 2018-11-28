@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Image from 'react-bootstrap/lib/Image'
+import {Image} from 'react-bootstrap'
 
 class Logo extends Component {
     render() {
