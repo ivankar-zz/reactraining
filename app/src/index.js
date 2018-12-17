@@ -8,8 +8,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import { auth } from './_reducers/auth'
 import { course } from './_reducers/course'
+import { courses } from './_reducers/courses'
+import { authors } from './_reducers/authors'
 
-const store = createStore(combineReducers({ auth, course }))
+const store = createStore(combineReducers({ auth, courses, course, authors }))
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 

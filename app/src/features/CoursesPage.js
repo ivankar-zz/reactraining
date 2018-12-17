@@ -4,8 +4,8 @@ import {connect} from 'react-redux'
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        courses: state.course.courses,
-        filter: state.course.filter,
+        courses: state.courses.courses,
+        filter: state.courses.filter,
         searchEnabled: !state.course.inProgress
     }
 }

@@ -1,22 +1,39 @@
-export const course = (state = { filter: '', inProgress: false, courses: []}, action) => {
-    console.log(action)
+export const course = (state = { inProgress: false, course: {}}, action) => {
     switch (action.type) {
-        case "COURSES_REQUEST":
+        case "COURSE_REQUEST":
             return {
                 ...state,
                 inProgress: true
             }
-        case "COURSES_REQUEST_SUCCESS":
+        case "COURSE_REQUEST_SUCCESS":
             return {
                 ...state,
-                courses: action.courses,
+                course: action.course,
                 inProgress: false
             }
-        case "COURSES_REQUEST_FAILURE":
+        case "COURSE_REQUEST_FAILURE":
             return {
                 ...state,
                 inProgress: false
             }
+        case "SAVE_COURSE_REQUEST":
+            return {
+                ...state,
+                course: course,
+                inProgress: true
+            }
+        case "SAVE_COURSE_REQUEST_SUCCESS":
+            return {
+                ...state,
+                course: action.course,
+                inProgress: false
+            }
+        case "SAVE_COURSE_REQUEST_FAILURE":
+            return {
+                ...state,
+                inProgress: false
+            }
+        
         default:
             return state;
     }

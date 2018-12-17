@@ -4,7 +4,8 @@ import {connect} from 'react-redux'
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        loginEnabled: !state.auth.inProgress
+        loginEnabled: !state.auth.inProgress,
+        error: state.auth.error
     }
 }
 const mapDispatchToProps = dispatch => ({
@@ -22,7 +23,8 @@ const mapDispatchToProps = dispatch => ({
                     })
                 } else {
                     dispatch({
-                        type: "LOGIN_FAILURE"
+                        type: "LOGIN_FAILURE",
+                        error: resp.error
                     })
                 }
             });

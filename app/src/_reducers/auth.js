@@ -16,7 +16,8 @@ export const auth = (state = { authorized: false, inProgress: false}, action) =>
             return {
                 username: undefined,
                 authorized: false,
-                inProgress: false
+                inProgress: false,
+                error: action.error
             }
         default:
             return state;

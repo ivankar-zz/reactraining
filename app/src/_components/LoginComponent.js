@@ -18,6 +18,7 @@ export default class LoginComponent extends Component {
             [name]: e.target.value
         })
     }
+
     doSubmit() {
         const { username, password } = this.state
         this.props.doLogin(username, password)
@@ -34,6 +35,7 @@ export default class LoginComponent extends Component {
                     <ControlLabel>Password</ControlLabel>
                     <FormControl type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.changeInput} />
                 </FormGroup>
+                {this.props.error ? <div>{this.props.error}</div> : null}
                 <Button type="submit" disabled={!this.props.loginEnabled} variant="primary">Submit</Button>
             </Form>
         )
